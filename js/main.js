@@ -518,6 +518,13 @@ async function handleLexReservation() {
     if (!d || !start || !end) return showError("Dados incompletos.");
     if (start >= end) return showError("O início deve ser antes do fim.");
 
+    // Duration Validation (Max 3 hours)
+    const [h1, m1] = start.split(':').map(Number);
+    const [h2, m2] = end.split(':').map(Number);
+    const durationMinutes = (h2 * 60 + m2) - (h1 * 60 + m1);
+
+    if (durationMinutes > 180) return showError("Máximo de 3 horas por reserva.");
+
     // Past Date Validation
     const now = new Date();
     const today = now.toISOString().split('T')[0];

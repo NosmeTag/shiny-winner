@@ -187,7 +187,7 @@ export const renderDashboardStructure = (userName) => {
         </section>`;
 
     // Init Flatpickr
-    const fpConfig = { locale: "pt", dateFormat: "Y-m-d", altInput: true, altFormat: "d/m/Y", minDate: "today", disableMobile: false };
+    const fpConfig = { locale: "pt", dateFormat: "Y-m-d", altInput: true, altFormat: "d/m/Y", minDate: "today", maxDate: new Date().fp_incr(30), disableMobile: false };
     flatpickr("#lex-date", fpConfig);
     flatpickr("#chrome-date", fpConfig);
 
