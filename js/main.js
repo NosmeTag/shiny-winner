@@ -294,7 +294,7 @@ const setupDashboardListeners = () => {
                     Notification.requestPermission().then(p => {
                         if (p === 'granted') {
                             showSuccess("Notificações ativadas!");
-                            requestForToken();
+                            // requestForToken(); // Removed FCM
                         }
                     });
                 }
@@ -303,7 +303,9 @@ const setupDashboardListeners = () => {
 
         unsubLoans = subscribeToAllActiveLoans((data) => {
             // Check for new loans and returns
-            if (previousLoanIds.size > 0) {
+            const currentIds = new Set(data.map(d => d.id));
+
+            if (previousLoanIds !== null) {
                 // New Loans
                 data.forEach(loan => {
                     if (!previousLoanIds.has(loan.id)) {
@@ -312,17 +314,14 @@ const setupDashboardListeners = () => {
                 });
 
                 // Returns (Loans that disappeared)
-                const currentIds = new Set(data.map(d => d.id));
                 previousLoanIds.forEach(id => {
                     if (!currentIds.has(id)) {
-                        // We don't have the loan object anymore, but we know it was returned.
-                        // Ideally we would cache the previous data to get the teacher name, but for now a generic message works.
                         sendNotification("Devolução Realizada", "Um empréstimo de Chromebooks foi finalizado.");
                     }
                 });
             }
             // Update previous IDs
-            previousLoanIds = new Set(data.map(d => d.id));
+            previousLoanIds = currentIds;
 
             loansCallback(data);
         });
@@ -330,7 +329,7 @@ const setupDashboardListeners = () => {
         // Lex Notifications
         if (unsubLex) unsubLex();
         unsubLex = subscribeToLexReservations((data) => {
-            if (previousLexIds.size > 0) {
+            if (previousLexIds !== null) {
                 data.forEach(res => {
                     if (!previousLexIds.has(res.id)) {
                         sendNotification("Reserva Sala Lets", `Nova reserva para ${res.date} às ${res.startTime}.`);
@@ -349,15 +348,15 @@ const setupDashboardListeners = () => {
         unsubLex = subscribeToLexReservations((data) => renderLexList(data, getCurrentUser().uid));
     }
 
-    // Check if already granted to sync token
+    // Check if already granted
     if (isAdmin() && "Notification" in window && Notification.permission === "granted") {
-        requestForToken();
+        // requestForToken(); // Removed FCM
     }
 };
 
 // --- Notification Logic ---
-let previousLoanIds = new Set();
-let previousLexIds = new Set();
+let previousLoanIds = null;
+let previousLexIds = null;
 
 function sendNotification(title, body) {
     if (Notification.permission === "granted") {

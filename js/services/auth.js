@@ -5,7 +5,7 @@ import {
     sendPasswordResetEmail, updatePassword
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, serverTimestamp, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-messaging.js";
+// import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-messaging.js"; // Removed FCM
 import { TECH_EMAIL, COLLECTIONS } from '../config/constants.js';
 import { showSuccess, showError } from '../ui/toasts.js';
 
@@ -20,7 +20,7 @@ const firebaseConfig = {
     measurementId: "G-0EG4DG1N55"
 };
 
-let app, auth, db, messaging;
+let app, auth, db;
 let currentUser = null;
 let isRegistrationFlow = false;
 
@@ -44,12 +44,12 @@ export const initAuth = (onUserChanged) => {
             onUserChanged(currentUser);
         });
 
-        // Initialize Messaging
-        try {
-            messaging = getMessaging(app);
-        } catch (e) {
-            console.warn("Messaging not supported (likely http localhost).");
-        }
+        // Initialize Messaging - REMOVED
+        // try {
+        //     messaging = getMessaging(app);
+        // } catch (e) {
+        //     console.warn("Messaging not supported (likely http localhost).");
+        // }
 
         return { app, auth, db };
     } catch (error) {
@@ -59,26 +59,7 @@ export const initAuth = (onUserChanged) => {
 };
 
 export const requestForToken = async () => {
-    if (!messaging) return null;
-    try {
-        // VAPID Key is required for web push. User must generate this in Firebase Console.
-        const currentToken = await getToken(messaging, { vapidKey: 'BFPu_TIhMA6ADBqyamgWHf-NEcjSke0Z8ewiYM4n5rDCwJkRSBHfiih5u1VfoypjSdSl-MdwnHOJtikAWO59F78' });
-        if (currentToken) {
-            const user = auth.currentUser;
-            if (user) {
-                await setDoc(doc(db, COLLECTIONS.USERS, user.uid), {
-                    fcmToken: currentToken
-                }, { merge: true });
-            }
-            return currentToken;
-        } else {
-            console.log('No registration token available.');
-            return null;
-        }
-    } catch (err) {
-        console.log('An error occurred while retrieving token. ', err);
-        return null;
-    }
+    return null; // FCM Removed
 };
 
 export const getAuthInstance = () => auth;

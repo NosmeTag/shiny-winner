@@ -96,15 +96,7 @@ export const reserveLex = async (date, start, end, teacherName) => {
         timestamp: serverTimestamp()
     });
 
-    // Notify Admin (Vercel)
-    fetch('/api/notify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            title: "Reserva Sala Lets",
-            body: `Nova reserva feita por ${teacherName}.`
-        })
-    }).catch(console.error);
+    // Notify Admin (Client-side listener handles this)
 };
 
 export const deleteLexReservation = async (id) => {
@@ -142,15 +134,7 @@ export const reserveChromebooks = async (date, start, chromebooksList, teacherNa
 
     await batch.commit();
 
-    // Notify Admin (Vercel)
-    fetch('/api/notify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            title: "Nova Reserva de Chromebooks!",
-            body: `Professor(a) ${teacherName} acabou de fazer uma reserva.`
-        })
-    }).catch(console.error);
+    // Notify Admin (Client-side listener handles this)
 };
 
 export const returnChromebookLoan = async (loanId, specificIds = null) => {
@@ -175,15 +159,7 @@ export const returnChromebookLoan = async (loanId, specificIds = null) => {
             });
             await deleteDoc(docRef);
 
-            // Notify Admin (Vercel)
-            fetch('/api/notify', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    title: "Devolução Realizada",
-                    body: `Os Chromebooks de ${data.teacherName} foram devolvidos.`
-                })
-            }).catch(console.error);
+            // Notify Admin (Client-side listener handles this)
         } else {
             // Partial Return
             const remainingIds = allIds.filter(id => !idsToReturn.includes(id));

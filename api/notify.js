@@ -2,15 +2,19 @@ const admin = require("firebase-admin");
 
 // Initialize Firebase Admin if not already initialized
 if (!admin.apps.length) {
-    // We expect the service account to be passed as a JSON string in the environment variable
-    // FIREBASE_SERVICE_ACCOUNT
-    if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-        const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-        admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount)
-        });
-    } else {
-        console.error("FIREBASE_SERVICE_ACCOUNT environment variable not set.");
+    try {
+        if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+            console.log("Found FIREBASE_SERVICE_ACCOUNT, length:", process.env.FIREBASE_SERVICE_ACCOUNT.length);
+            const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+            admin.initializeApp({
+                credential: admin.credential.cert(serviceAccount)
+            });
+            console.log("Firebase Admin initialized successfully.");
+        } else {
+            console.error("CRITICAL: FIREBASE_SERVICE_ACCOUNT environment variable is missing.");
+        }
+    } catch (error) {
+        console.error("CRITICAL: Failed to initialize Firebase Admin:", error);
     }
 }
 
@@ -31,6 +35,10 @@ module.exports = async (req, res) => {
 
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    if (!admin.apps.length) {
+        return res.status(500).json({ error: 'Firebase Admin not initialized. Check server logs for FIREBASE_SERVICE_ACCOUNT error.' });
     }
 
     try {

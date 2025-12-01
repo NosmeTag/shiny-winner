@@ -193,7 +193,7 @@ export const renderDashboardStructure = (userName) => {
 
     // Init Selects
     // Init Flatpickr Time Pickers (24h)
-    const timeConfig = { enableTime: true, noCalendar: true, dateFormat: "H:i", time_24hr: true };
+    const timeConfig = { enableTime: true, noCalendar: true, dateFormat: "H:i", time_24hr: true, disableMobile: true, locale: "pt" };
     flatpickr("#lex-start", timeConfig);
     flatpickr("#lex-end", timeConfig);
     flatpickr("#chrome-start", timeConfig);
