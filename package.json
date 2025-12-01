@@ -1,0 +1,7 @@
+{
+    "name": "chromebook-reservations",
+    "version": "1.0.0",
+    "dependencies": {
+        "firebase-admin": "^11.8.0"
+    }
+}

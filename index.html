@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva Mopi | Dashboard</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00264d">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="./imagem/mopi_logo.png">
+    <link rel="icon" type="image/png" href="./imagem/mopi_logo.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-[#fcb900] selection:text-[#00264d]">
+
+    <header id="main-header"
+        class="hidden sticky top-0 z-50 bg-[#00264d] shadow-lg backdrop-blur-sm bg-opacity-95 transition-all duration-300">
+        <div class="container mx-auto px-4 h-16 flex justify-between items-center">
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div
+                    class="bg-white p-1.5 rounded-lg shadow-md group-hover:scale-105 transition-transform duration-300">
+                    <img src="./imagem/mopi_logo.png" alt="Logo Mopi" class="h-8 w-auto object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-white font-bold text-lg tracking-tight leading-none font-montserrat">Reserva Mopi
+                    </h1>
+                    <span class="text-[#fcb900] text-[10px] font-bold tracking-widest uppercase opacity-90">Sistema de
+                        Gestão</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button id="install-btn"
+                    class="hidden bg-[#fcb900] text-[#00264d] px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-yellow-400 transition-colors shadow-sm flex items-center gap-2">
+                    <span>📲</span> Instalar App
+                </button>
+                <div id="auth-info"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-160px)]">
+        <div id="app-view">
+            <!-- Dynamic Content -->
+            <div class="flex justify-center items-center h-64">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 mt-auto">
+        <div class="container mx-auto px-4 py-6 text-center">
+            <p class="text-xs text-gray-400 font-medium">
+                &copy; 2024 Mopi. Todos os direitos reservados.
+                <span class="mx-2">•</span>
+                <span class="text-gray-300">v2.0.0</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW falhou', err));
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

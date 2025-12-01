@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // --- Helper Functions ---
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isEmailVerified() {
+      return request.auth.token.email_verified;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == "mersoficial@gmail.com" || 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin"
+      );
+    }
+
+    // --- Users Collection ---
+    // Used for profile data and Admin User Management
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+    }
+
+    // --- Lex Reservations ---
+    match /reservas_lex/{reservationId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && (isEmailVerified() || isAdmin());
+      allow delete: if isAuthenticated() && (resource.data.reservedBy == request.auth.uid || isAdmin());
+    }
+
+    // --- Chromebook Reservations ---
+    match /reservas_chromebooks_agendamento/{reservationId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && (isEmailVerified() || isAdmin());
+      allow update: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow delete: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    // --- History Logs ---
+    match /historico_chromebooks/{logId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated(); // Created automatically on return
+      allow delete: if isAdmin();
+    }
+
+    // --- System Config: Maintenance ---
+    // Only Admins can toggle maintenance mode
+    match /config_sistema/maintenance {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // --- System Config: Defects ---
+    // Any authenticated user can report a defect (write access needed)
+    match /config_sistema/defects {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+  }
+}
