@@ -8,7 +8,7 @@
     --bg-color: #f0f4f8;
 }
 
-body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 20px 20px; color: #1e293b; touch-action: manipulation; }
+body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: #1e293b; touch-action: manipulation; }
 h1, h2, h3, h4, .brand-font { font-family: 'Montserrat', sans-serif; }
 
 .card { background: white; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025); border-radius: 16px; border: 1px solid rgba(255,255,255,0.5); }

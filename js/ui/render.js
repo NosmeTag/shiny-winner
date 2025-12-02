@@ -58,10 +58,10 @@ export const renderAuthView = (mode) => {
 
 export const renderVerificationPending = (email) => {
     document.getElementById('app-view').innerHTML = `
-        <div class="max-w-lg mx-auto mt-10 bg-white card p-10 text-center">
-            <h2 class="text-2xl font-bold text-[#00264d] mb-2 font-montserrat">Verifique seu Email</h2>
-            <p class="text-gray-600 mb-8">Link enviado para <strong>${email}</strong></p>
-            <button id="resend-btn" class="btn-mopi-secondary w-full">Reenviar Email</button>
+        <div class="max-w-lg mx-auto mt-10 bg-white dark:bg-slate-800 card p-10 text-center">
+            <h2 class="text-2xl font-bold text-[#00264d] dark:text-white mb-2 font-montserrat">Verifique seu Email</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-8">Link enviado para <strong>${email}</strong></p>
+            <button id="resend-btn" class="btn-mopi-secondary w-full dark:text-white dark:border-white dark:hover:bg-white/10">Reenviar Email</button>
             <button id="logout-btn-pending" class="text-xs text-red-400 font-bold uppercase tracking-wide mt-4">Sair</button>
         </div>`;
 };
@@ -78,8 +78,8 @@ export const renderDashboardStructure = (userName) => {
             <div class="bg-white dark:bg-slate-800 card p-6"><h3 class="text-[#00264d] dark:text-white font-bold font-montserrat mb-4 text-center">Status dos Chromes</h3><div class="chart-wrapper"><canvas id="chart-status"></canvas></div></div>
         </div>
 
-        <div id="admin-defects-panel" class="hidden bg-white card mb-8 p-6 border-l-4 border-yellow-400">
-            <h3 class="text-lg font-bold text-[#00264d] mb-4 flex items-center">⚠️ Chamados de Manutenção (Abertos)</h3>
+        <div id="admin-defects-panel" class="hidden bg-white dark:bg-slate-800 card mb-8 p-6 border-l-4 border-yellow-400">
+            <h3 class="text-lg font-bold text-[#00264d] dark:text-white mb-4 flex items-center">⚠️ Chamados de Manutenção (Abertos)</h3>
             <div id="admin-defects-list" class="space-y-2"><p class="text-gray-400 italic text-sm">Nenhum chamado aberto.</p></div>
         </div>
         
@@ -141,43 +141,43 @@ export const renderDashboardStructure = (userName) => {
             </section>
         </div>
 
-        <div id="admin-users-section" class="hidden bg-white card mb-8 p-6">
-            <h3 class="text-lg font-bold text-[#00264d] mb-4">Gestão de Usuários</h3>
+        <div id="admin-users-section" class="hidden bg-white dark:bg-slate-800 card mb-8 p-6">
+            <h3 class="text-lg font-bold text-[#00264d] dark:text-white mb-4">Gestão de Usuários</h3>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="text-xs text-gray-400 uppercase border-b border-gray-100">
+                        <tr class="text-xs text-gray-400 uppercase border-b border-gray-100 dark:border-slate-700">
                             <th class="p-3">Nome</th>
                             <th class="p-3">Email</th>
                             <th class="p-3">Role</th>
                             <th class="p-3">Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="users-list-body" class="text-sm text-gray-600"></tbody>
+                    <tbody id="users-list-body" class="text-sm text-gray-600 dark:text-gray-300"></tbody>
                 </table>
             </div>
         </div>
 
-        <div id="admin-history-section" class="hidden bg-white card mb-8 p-6">
-            <h3 class="text-lg font-bold text-[#00264d] mb-4">Histórico Recente</h3>
+        <div id="admin-history-section" class="hidden bg-white dark:bg-slate-800 card mb-8 p-6">
+            <h3 class="text-lg font-bold text-[#00264d] dark:text-white mb-4">Histórico Recente</h3>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="text-xs text-gray-400 uppercase border-b border-gray-100">
+                        <tr class="text-xs text-gray-400 uppercase border-b border-gray-100 dark:border-slate-700">
                             <th class="p-3">Data/Hora</th>
                             <th class="p-3">Recurso</th>
                             <th class="p-3">Detalhes</th>
                             <th class="p-3">Status</th>
                         </tr>
                     </thead>
-                    <tbody id="history-list-body" class="text-sm text-gray-600"></tbody>
+                    <tbody id="history-list-body" class="text-sm text-gray-600 dark:text-gray-300"></tbody>
                 </table>
             </div>
         </div>
 
-        <section id="admin-reports-section" class="hidden bg-white card overflow-hidden mb-20">
-            <div class="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div><h3 class="text-lg font-bold text-[#00264d]">Histórico & Relatórios</h3></div>
+        <section id="admin-reports-section" class="hidden bg-white dark:bg-slate-800 card overflow-hidden mb-20">
+            <div class="p-6 border-b border-gray-100 dark:border-slate-700 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div><h3 class="text-lg font-bold text-[#00264d] dark:text-white">Histórico & Relatórios</h3></div>
                 <div class="flex gap-2 w-full md:w-auto">
                     <input type="month" id="report-month" class="p-2 border rounded-lg text-sm w-full md:w-40">
                     <button id="download-excel-btn" class="btn-mopi-secondary text-xs">📊 Excel</button>
@@ -299,8 +299,8 @@ export const renderUserList = (users) => {
     }
 
     tbody.innerHTML = users.map(u => `
-        <tr class="border-b border-gray-50 hover:bg-gray-50">
-            <td class="p-3 font-medium text-[#00264d]">
+        <tr class="border-b border-gray-50 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700">
+            <td class="p-3 font-medium text-[#00264d] dark:text-white">
                 ${u.name || '-'}
                 ${u.department ? `<span class="ml-2 text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${getDeptColor(u.department)}">${getDeptLabel(u.department)}</span>` : ''}
             </td>
@@ -334,14 +334,14 @@ export const renderHistoryLogs = (logs) => {
     }
 
     tbody.innerHTML = logs.map(l => `
-        <tr class="border-b border-gray-50 hover:bg-gray-50">
+        <tr class="border-b border-gray-50 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700">
             <td class="p-3 text-xs">
                 <div class="font-bold">${formatDate(l.day)}</div>
                 <div class="text-gray-400">${l.time}</div>
             </td>
             <td class="p-3 text-sm font-medium">Chromebooks</td>
             <td class="p-3 text-xs text-gray-500">
-                <div class="font-bold text-[#00264d]">${l.teacherName}</div>
+                <div class="font-bold text-[#00264d] dark:text-white">${l.teacherName}</div>
                 <div>IDs: ${l.chromebooks ? l.chromebooks.join(', ') : '-'}</div>
             </td>
             <td class="p-3"><span class="px-2 py-1 rounded text-xs font-bold bg-green-100 text-green-700">Devolvido</span></td>
@@ -355,14 +355,14 @@ export const renderProfileView = (user) => {
 
     container.innerHTML = `
         <div class="max-w-2xl mx-auto">
-            <div class="bg-white card p-8 mb-6">
-                <div class="flex items-center gap-4 mb-8 border-b border-gray-100 pb-6">
-                    <div class="bg-[#00264d] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold">
+            <div class="bg-white dark:bg-slate-800 card p-8 mb-6">
+                <div class="flex items-center gap-4 mb-8 border-b border-gray-100 dark:border-slate-700 pb-6">
+                    <div class="bg-[#00264d] dark:bg-[#fcb900] text-white dark:text-[#00264d] w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold">
                         ${user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-[#00264d]">${user.displayName || 'Usuário'}</h2>
-                        <p class="text-gray-500">${user.email}</p>
+                        <h2 class="text-2xl font-bold text-[#00264d] dark:text-white">${user.displayName || 'Usuário'}</h2>
+                        <p class="text-gray-500 dark:text-gray-400">${user.email}</p>
                         <span class="inline-block mt-2 px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full uppercase tracking-wide">
                             ${user.email === 'mersoficial@gmail.com' ? 'Administrador' : 'Professor'}
                         </span>
@@ -370,7 +370,7 @@ export const renderProfileView = (user) => {
                 </div>
 
                 <form id="profile-password-form" class="space-y-6">
-                    <h3 class="text-lg font-bold text-[#00264d] mb-4">Alterar Senha</h3>
+                    <h3 class="text-lg font-bold text-[#00264d] dark:text-white mb-4">Alterar Senha</h3>
                     
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nova Senha</label>
