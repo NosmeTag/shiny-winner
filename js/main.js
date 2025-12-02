@@ -259,73 +259,73 @@ const setupDashboardListeners = () => {
             if (timeInput._flatpickr) timeInput._flatpickr.setDate(newTime, true);
             else timeInput.value = newTime;
         }
-    }
+
         loadChromebookStatus();
-});
-
-// Auto-load on change
-document.getElementById('chrome-date')?.addEventListener('change', () => {
-    const start = document.getElementById('chrome-start').value;
-    if (start) loadChromebookStatus();
-});
-document.getElementById('chrome-start')?.addEventListener('change', () => {
-    const date = document.getElementById('chrome-date').value;
-    if (date) loadChromebookStatus();
-});
-
-document.getElementById('loan-btn')?.addEventListener('click', handleChromebookReservation);
-document.getElementById('auto-select-btn')?.addEventListener('click', autoSelectChromebooks);
-
-// Admin
-if (isAdmin()) {
-    document.getElementById('maintenance-toggle')?.addEventListener('change', (e) => {
-        isAdminMaintenanceMode = e.target.checked;
-        const grid = document.getElementById('chromebook-selector');
-        if (isAdminMaintenanceMode) grid.classList.add('editing-maintenance');
-        else grid.classList.remove('editing-maintenance');
     });
 
-    document.getElementById('download-excel-btn')?.addEventListener('click', () => downloadReport('excel'));
-    document.getElementById('download-pdf-btn')?.addEventListener('click', () => downloadReport('pdf'));
-}
+    // Auto-load on change
+    document.getElementById('chrome-date')?.addEventListener('change', () => {
+        const start = document.getElementById('chrome-start').value;
+        if (start) loadChromebookStatus();
+    });
+    document.getElementById('chrome-start')?.addEventListener('change', () => {
+        const date = document.getElementById('chrome-date').value;
+        if (date) loadChromebookStatus();
+    });
 
-// Status Listeners
-if (unsubMaint) unsubMaint();
-unsubMaint = subscribeToMaintenance((set) => {
-    maintenanceSet = set;
-    refreshGrid();
-    if (isAdmin()) updateDashboardCharts();
-});
+    document.getElementById('loan-btn')?.addEventListener('click', handleChromebookReservation);
+    document.getElementById('auto-select-btn')?.addEventListener('click', autoSelectChromebooks);
 
-if (unsubDefects) unsubDefects();
-unsubDefects = subscribeToDefects((data) => {
-    defectiveData = data;
-    refreshGrid();
-    if (isAdmin()) { renderAdminDefects(data); updateDashboardCharts(); }
-});
-
-if (unsubLoans) unsubLoans();
-const loansCallback = (data) => {
-    const container = document.getElementById('my-active-loans-container');
-    if (!container) return;
-    const list = document.getElementById('my-active-list');
-    const title = container.querySelector('h4');
-
-    if (data.length === 0) { container.classList.add('hidden'); return; }
-    container.classList.remove('hidden');
-
+    // Admin
     if (isAdmin()) {
-        title.innerHTML = `⚡ Chromebooks em Uso (Todos) <span class="ml-2 bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full">${data.length}</span>`;
-        container.classList.remove('bg-blue-50', 'border-blue-100');
-        container.classList.add('bg-red-50', 'border-red-100');
-    } else {
-        title.innerHTML = `⚡ Meus Chromebooks`;
-        container.classList.remove('bg-red-50', 'border-red-100');
-        container.classList.add('bg-blue-50', 'border-blue-100');
+        document.getElementById('maintenance-toggle')?.addEventListener('change', (e) => {
+            isAdminMaintenanceMode = e.target.checked;
+            const grid = document.getElementById('chromebook-selector');
+            if (isAdminMaintenanceMode) grid.classList.add('editing-maintenance');
+            else grid.classList.remove('editing-maintenance');
+        });
+
+        document.getElementById('download-excel-btn')?.addEventListener('click', () => downloadReport('excel'));
+        document.getElementById('download-pdf-btn')?.addEventListener('click', () => downloadReport('pdf'));
     }
 
-    const sorted = data.sort((a, b) => a.day.localeCompare(b.day) || a.time.localeCompare(b.time));
-    list.innerHTML = sorted.map(d => `
+    // Status Listeners
+    if (unsubMaint) unsubMaint();
+    unsubMaint = subscribeToMaintenance((set) => {
+        maintenanceSet = set;
+        refreshGrid();
+        if (isAdmin()) updateDashboardCharts();
+    });
+
+    if (unsubDefects) unsubDefects();
+    unsubDefects = subscribeToDefects((data) => {
+        defectiveData = data;
+        refreshGrid();
+        if (isAdmin()) { renderAdminDefects(data); updateDashboardCharts(); }
+    });
+
+    if (unsubLoans) unsubLoans();
+    const loansCallback = (data) => {
+        const container = document.getElementById('my-active-loans-container');
+        if (!container) return;
+        const list = document.getElementById('my-active-list');
+        const title = container.querySelector('h4');
+
+        if (data.length === 0) { container.classList.add('hidden'); return; }
+        container.classList.remove('hidden');
+
+        if (isAdmin()) {
+            title.innerHTML = `⚡ Chromebooks em Uso (Todos) <span class="ml-2 bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full">${data.length}</span>`;
+            container.classList.remove('bg-blue-50', 'border-blue-100');
+            container.classList.add('bg-red-50', 'border-red-100');
+        } else {
+            title.innerHTML = `⚡ Meus Chromebooks`;
+            container.classList.remove('bg-red-50', 'border-red-100');
+            container.classList.add('bg-blue-50', 'border-blue-100');
+        }
+
+        const sorted = data.sort((a, b) => a.day.localeCompare(b.day) || a.time.localeCompare(b.time));
+        list.innerHTML = sorted.map(d => `
             <div class="active-loan-card flex justify-between items-center p-3 bg-white rounded shadow-sm mb-2 border-l-4 ${isAdmin() ? 'border-red-500' : 'border-[#00264d]'}">
                 <div>
                     <span class="block text-xs text-gray-500 font-bold uppercase">${formatDate(d.day)} • ${d.time}</span>
@@ -338,86 +338,86 @@ const loansCallback = (data) => {
                     <button onclick="window.dispatchEvent(new CustomEvent('return-loan-request', {detail: {id: '${d.id}', list: [${d.chromebooks}]}}))" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-xs shadow-sm transition-colors">DEVOLVER</button>
                 </div>
             </div>`).join('');
-};
+    };
 
-if (isAdmin()) {
-    // Check permission on load
-    if ("Notification" in window && Notification.permission === "default") {
-        showWarning("⚠️ Clique aqui para ativar notificações de novas reservas", {
-            duration: -1, // Persistent
-            onClick: () => {
-                Notification.requestPermission().then(p => {
-                    if (p === 'granted') {
-                        showSuccess("Notificações ativadas!");
-                        // requestForToken(); // Removed FCM
+    if (isAdmin()) {
+        // Check permission on load
+        if ("Notification" in window && Notification.permission === "default") {
+            showWarning("⚠️ Clique aqui para ativar notificações de novas reservas", {
+                duration: -1, // Persistent
+                onClick: () => {
+                    Notification.requestPermission().then(p => {
+                        if (p === 'granted') {
+                            showSuccess("Notificações ativadas!");
+                            // requestForToken(); // Removed FCM
+                        }
+                    });
+                }
+            });
+        }
+
+        unsubLoans = subscribeToAllActiveLoans((data) => {
+            // Check for new loans and returns
+            const currentIds = new Set(data.map(d => d.id));
+
+            if (previousLoanIds !== null) {
+                // New Loans
+                data.forEach(loan => {
+                    if (!previousLoanIds.has(loan.id)) {
+                        sendNotification("Nova Reserva!", `Professor(a) ${loan.teacherName} reservou Chromebooks.`);
+                    }
+                });
+
+                // Returns (Loans that disappeared)
+                previousLoanIds.forEach(id => {
+                    if (!currentIds.has(id)) {
+                        sendNotification("Devolução Realizada", "Um empréstimo de Chromebooks foi finalizado.");
                     }
                 });
             }
+            // Update previous IDs
+            previousLoanIds = currentIds;
+
+            loansCallback(data);
+        });
+
+        // Lex Notifications
+        if (unsubLex) unsubLex();
+        unsubLex = subscribeToLexReservations((data) => {
+            if (previousLexIds !== null) {
+                data.forEach(res => {
+                    if (!previousLexIds.has(res.id)) {
+                        sendNotification("Reserva Sala Lets", `Nova reserva para ${res.date} às ${res.startTime}.`);
+                    }
+                });
+            }
+            previousLexIds = new Set(data.map(d => d.id));
+            currentLexReservations = data; // Store for validation
+            renderLexList(data, getCurrentUser().uid);
+            validateLexReservation(); // Re-validate if data changes
+        });
+
+    } else {
+        unsubLoans = subscribeToMyActiveLoans(getCurrentUser().uid, loansCallback);
+
+        // Lex (Non-admin just renders)
+        if (unsubLex) unsubLex();
+        unsubLex = subscribeToLexReservations((data) => {
+            currentLexReservations = data;
+            renderLexList(data, getCurrentUser().uid);
+            validateLexReservation();
         });
     }
 
-    unsubLoans = subscribeToAllActiveLoans((data) => {
-        // Check for new loans and returns
-        const currentIds = new Set(data.map(d => d.id));
+    // Setup Validation Listeners
+    document.getElementById('lex-date')?.addEventListener('change', validateLexReservation);
+    document.getElementById('lex-start')?.addEventListener('change', validateLexReservation);
+    document.getElementById('lex-end')?.addEventListener('change', validateLexReservation);
 
-        if (previousLoanIds !== null) {
-            // New Loans
-            data.forEach(loan => {
-                if (!previousLoanIds.has(loan.id)) {
-                    sendNotification("Nova Reserva!", `Professor(a) ${loan.teacherName} reservou Chromebooks.`);
-                }
-            });
-
-            // Returns (Loans that disappeared)
-            previousLoanIds.forEach(id => {
-                if (!currentIds.has(id)) {
-                    sendNotification("Devolução Realizada", "Um empréstimo de Chromebooks foi finalizado.");
-                }
-            });
-        }
-        // Update previous IDs
-        previousLoanIds = currentIds;
-
-        loansCallback(data);
-    });
-
-    // Lex Notifications
-    if (unsubLex) unsubLex();
-    unsubLex = subscribeToLexReservations((data) => {
-        if (previousLexIds !== null) {
-            data.forEach(res => {
-                if (!previousLexIds.has(res.id)) {
-                    sendNotification("Reserva Sala Lets", `Nova reserva para ${res.date} às ${res.startTime}.`);
-                }
-            });
-        }
-        previousLexIds = new Set(data.map(d => d.id));
-        currentLexReservations = data; // Store for validation
-        renderLexList(data, getCurrentUser().uid);
-        validateLexReservation(); // Re-validate if data changes
-    });
-
-} else {
-    unsubLoans = subscribeToMyActiveLoans(getCurrentUser().uid, loansCallback);
-
-    // Lex (Non-admin just renders)
-    if (unsubLex) unsubLex();
-    unsubLex = subscribeToLexReservations((data) => {
-        currentLexReservations = data;
-        renderLexList(data, getCurrentUser().uid);
-        validateLexReservation();
-    });
-}
-
-// Setup Validation Listeners
-document.getElementById('lex-date')?.addEventListener('change', validateLexReservation);
-document.getElementById('lex-start')?.addEventListener('change', validateLexReservation);
-document.getElementById('lex-end')?.addEventListener('change', validateLexReservation);
-
-// Check if already granted
-if (isAdmin() && "Notification" in window && Notification.permission === "granted") {
-    // requestForToken(); // Removed FCM
-}
+    // Check if already granted
+    if (isAdmin() && "Notification" in window && Notification.permission === "granted") {
+        // requestForToken(); // Removed FCM
+    }
 };
 
 // --- Notification Logic ---
