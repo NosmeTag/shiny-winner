@@ -10,48 +10,48 @@ export const renderAuthView = (mode) => {
 
     if (isReset) {
         container.innerHTML = `
-            <div class="max-w-md mx-auto mt-10 bg-white card p-10 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-2 bg-[#00264d]"></div>
+            <div class="max-w-md mx-auto mt-10 bg-white dark:bg-slate-800 card p-10 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-[#00264d] dark:bg-[#fcb900]"></div>
                 <div class="flex flex-col items-center mb-8">
                     <img src="./imagem/mopi_logo.png" alt="Logo Mopi" class="h-20 object-contain mb-4">
-                    <h2 class="text-2xl font-montserrat font-bold text-[#00264d] text-center">Recuperar Senha</h2>
+                    <h2 class="text-2xl font-montserrat font-bold text-[#00264d] dark:text-white text-center">Recuperar Senha</h2>
                 </div>
                 <form id="auth-form" class="space-y-5">
                     <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Email Cadastrado</label>
-                        <input type="email" name="email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#fcb900] outline-none" placeholder="usuario@mopi.com.br">
+                        <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Email Cadastrado</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#fcb900] outline-none dark:text-white" placeholder="usuario@mopi.com.br">
                     </div>
                     <button type="submit" id="submit-btn" class="w-full btn-mopi-primary mt-4 shadow-lg">Enviar Email</button>
                 </form>
-                <div class="mt-8 pt-6 border-t border-gray-100 text-center text-sm text-gray-500">
-                    <a href="#" id="back-login-btn" class="text-[#00264d] font-bold hover:underline">Voltar para Login</a>
+                <div class="mt-8 pt-6 border-t border-gray-100 dark:border-slate-700 text-center text-sm text-gray-500">
+                    <a href="#" id="back-login-btn" class="text-[#00264d] dark:text-[#fcb900] font-bold hover:underline">Voltar para Login</a>
                 </div>
             </div>`;
         return;
     }
 
     container.innerHTML = `
-        <div class="max-w-md mx-auto mt-10 bg-white card p-10 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-2 bg-[#00264d]"></div>
+        <div class="max-w-md mx-auto mt-10 bg-white dark:bg-slate-800 card p-10 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-[#00264d] dark:bg-[#fcb900]"></div>
             <div class="flex flex-col items-center mb-8">
                 <img src="./imagem/mopi_logo.png" alt="Logo Mopi" class="h-20 object-contain mb-4">
-                <h2 class="text-2xl font-montserrat font-bold text-[#00264d] text-center">${isLogin ? 'Bem-vindo de volta' : 'Crie sua conta'}</h2>
+                <h2 class="text-2xl font-montserrat font-bold text-[#00264d] dark:text-white text-center">${isLogin ? 'Bem-vindo de volta' : 'Crie sua conta'}</h2>
             </div>
             <form id="auth-form" class="space-y-5">
-                ${!isLogin ? `<div><label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nome Completo</label><input type="text" name="name" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#fcb900] outline-none" placeholder="Ex: João Silva"></div>` : ''}
+                ${!isLogin ? `<div><label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Nome Completo</label><input type="text" name="name" required class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#fcb900] outline-none dark:text-white" placeholder="Ex: João Silva"></div>` : ''}
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Email Institucional</label>
-                    <input type="email" name="email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#fcb900] outline-none" placeholder="usuario@mopi.com.br">
+                    <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Email Institucional</label>
+                    <input type="email" name="email" required class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#fcb900] outline-none dark:text-white" placeholder="usuario@mopi.com.br">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Senha</label>
-                    <input type="password" name="password" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#fcb900] outline-none" placeholder="••••••••">
+                    <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Senha</label>
+                    <input type="password" name="password" required class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#fcb900] outline-none dark:text-white" placeholder="••••••••">
                 </div>
-                ${isLogin ? `<div class="text-right"><a href="#" id="forgot-btn" class="text-xs text-gray-400 hover:text-[#00264d]">Esqueceu a senha?</a></div>` : ''}
+                ${isLogin ? `<div class="text-right"><a href="#" id="forgot-btn" class="text-xs text-gray-400 hover:text-[#00264d] dark:hover:text-[#fcb900]">Esqueceu a senha?</a></div>` : ''}
                 <button type="submit" id="submit-btn" class="w-full btn-mopi-primary mt-4 shadow-lg">${isLogin ? 'Entrar' : 'Cadastrar'}</button>
             </form>
-            <div class="mt-8 pt-6 border-t border-gray-100 text-center text-sm text-gray-500">
-                ${isLogin ? 'Novo por aqui? <a href="#" id="switch-btn" class="text-[#00264d] font-bold hover:underline">Criar conta</a>' : 'Já possui conta? <a href="#" id="switch-btn" class="text-[#00264d] font-bold hover:underline">Fazer Login</a>'}
+            <div class="mt-8 pt-6 border-t border-gray-100 dark:border-slate-700 text-center text-sm text-gray-500">
+                ${isLogin ? 'Novo por aqui? <a href="#" id="switch-btn" class="text-[#00264d] dark:text-[#fcb900] font-bold hover:underline">Criar conta</a>' : 'Já possui conta? <a href="#" id="switch-btn" class="text-[#00264d] dark:text-[#fcb900] font-bold hover:underline">Fazer Login</a>'}
             </div>
         </div>`;
 };
@@ -69,13 +69,13 @@ export const renderVerificationPending = (email) => {
 export const renderDashboardStructure = (userName) => {
     document.getElementById('app-view').innerHTML = `
         <div class="mb-10 text-center md:text-left">
-            <h2 class="text-3xl md:text-4xl font-montserrat font-bold text-[#00264d]">Painel de Reservas</h2>
-            <p class="text-gray-500 mt-2 text-lg">Bem-vindo, ${userName}.</p>
+            <h2 class="text-3xl md:text-4xl font-montserrat font-bold text-[#00264d] dark:text-white">Painel de Reservas</h2>
+            <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Bem-vindo, ${userName}.</p>
         </div>
 
         <div id="admin-charts-section" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-white card p-6"><h3 class="text-[#00264d] font-bold font-montserrat mb-4 text-center">Top Reservas (Semana)</h3><div class="chart-wrapper"><canvas id="chart-ranking"></canvas></div></div>
-            <div class="bg-white card p-6"><h3 class="text-[#00264d] font-bold font-montserrat mb-4 text-center">Status dos Chromes</h3><div class="chart-wrapper"><canvas id="chart-status"></canvas></div></div>
+            <div class="bg-white dark:bg-slate-800 card p-6"><h3 class="text-[#00264d] dark:text-white font-bold font-montserrat mb-4 text-center">Top Reservas (Semana)</h3><div class="chart-wrapper"><canvas id="chart-ranking"></canvas></div></div>
+            <div class="bg-white dark:bg-slate-800 card p-6"><h3 class="text-[#00264d] dark:text-white font-bold font-montserrat mb-4 text-center">Status dos Chromes</h3><div class="chart-wrapper"><canvas id="chart-status"></canvas></div></div>
         </div>
 
         <div id="admin-defects-panel" class="hidden bg-white card mb-8 p-6 border-l-4 border-yellow-400">
@@ -89,20 +89,20 @@ export const renderDashboardStructure = (userName) => {
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <section class="bg-white card overflow-hidden flex flex-col h-full">
-                <div class="bg-gray-50 p-5 border-b border-gray-100 flex justify-between items-center"><h3 class="text-lg font-bold text-[#00264d] flex items-center"><span class="w-2 h-6 bg-[#fcb900] mr-3 rounded-full"></span> Espaço Let's</h3></div>
+            <section class="bg-white dark:bg-slate-800 card overflow-hidden flex flex-col h-full">
+                <div class="bg-gray-50 dark:bg-slate-700 p-5 border-b border-gray-100 dark:border-slate-600 flex justify-between items-center"><h3 class="text-lg font-bold text-[#00264d] dark:text-white flex items-center"><span class="w-2 h-6 bg-[#fcb900] mr-3 rounded-full"></span> Espaço Let's</h3></div>
                 <div class="p-6 flex-grow flex flex-col">
                     <div class="flex flex-col gap-4 mb-6">
-                        <input type="text" id="lex-date" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#00264d]" placeholder="Data">
-                        <div class="flex gap-2 items-center"><div class="flex-grow"><label class="text-[10px] text-gray-400 font-bold uppercase">Início</label><input type="text" id="lex-start" class="w-full p-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-sm" placeholder="00:00"></div><span class="text-gray-300 pt-4">➝</span><div class="flex-grow"><label class="text-[10px] text-gray-400 font-bold uppercase">Fim</label><input type="text" id="lex-end" class="w-full p-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-sm" placeholder="00:00"></div></div>
+                        <input type="text" id="lex-date" class="w-full p-3 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg outline-none focus:ring-2 focus:ring-[#00264d] dark:text-white" placeholder="Data">
+                        <div class="flex gap-2 items-center"><div class="flex-grow"><label class="text-[10px] text-gray-400 font-bold uppercase">Início</label><input type="text" id="lex-start" class="w-full p-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg outline-none text-sm dark:text-white" placeholder="00:00"></div><span class="text-gray-300 pt-4">➝</span><div class="flex-grow"><label class="text-[10px] text-gray-400 font-bold uppercase">Fim</label><input type="text" id="lex-end" class="w-full p-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg outline-none text-sm dark:text-white" placeholder="00:00"></div></div>
                         <button id="reserve-lex-btn" class="btn-mopi-primary w-full">Reservar Período</button>
                     </div>
                     <div class="mt-6"><h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Agenda do Dia</h4><div id="lex-list" class="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar"><p class="text-gray-400 text-sm italic">Selecione uma data.</p></div></div>
                 </div>
             </section>
 
-            <section class="bg-white card overflow-hidden flex flex-col h-full">
-                <div class="bg-[#00264d] p-5 border-b border-gray-100 text-white flex justify-between items-center gap-3">
+            <section class="bg-white dark:bg-slate-800 card overflow-hidden flex flex-col h-full">
+                <div class="bg-[#00264d] dark:bg-slate-900 p-5 border-b border-gray-100 dark:border-slate-700 text-white flex justify-between items-center gap-3">
                     <h3 class="text-lg font-bold flex items-center"><span class="w-2 h-6 bg-[#fcb900] mr-3 rounded-full"></span> Chromebooks</h3>
                     <div class="flex gap-2">
                         <span class="text-[10px] bg-green-500 text-white px-2 py-1 rounded shadow-sm font-bold" title="Disponíveis">LIVRES: <span id="stat-free">--</span></span>
@@ -111,23 +111,23 @@ export const renderDashboardStructure = (userName) => {
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
                     <div class="flex flex-col gap-4 mb-6">
-                        <input type="text" id="chrome-date" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-[#00264d]" placeholder="Data de Uso">
+                        <input type="text" id="chrome-date" class="w-full p-3 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg outline-none focus:ring-2 focus:ring-[#00264d] dark:text-white" placeholder="Data de Uso">
                         <div class="flex gap-2 items-center">
                             <div class="flex-grow">
                                 <label class="text-[10px] text-gray-400 font-bold uppercase">Pegar às</label>
-                                <input type="text" id="chrome-start" class="w-full p-2 bg-gray-50 border border-gray-200 rounded-lg outline-none text-sm" placeholder="00:00">
+                                <input type="text" id="chrome-start" class="w-full p-2 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg outline-none text-sm dark:text-white" placeholder="00:00">
                             </div>
                             <button id="load-chrome-btn" class="bg-blue-100 text-[#00264d] p-2 rounded-lg hover:bg-blue-200 transition" title="Atualizar Status">🔄</button>
                         </div>
                     </div>
 
-                    <div class="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                    <div class="mb-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-lg border border-gray-100 dark:border-slate-600">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-gray-500 uppercase">Seleção Rápida</span>
+                            <span class="text-xs font-bold text-gray-500 dark:text-gray-300 uppercase">Seleção Rápida</span>
                             ${isAdmin() ? `<div class="flex items-center gap-2"><span class="text-[10px] font-bold text-red-500 uppercase">Manutenção</span><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" id="maintenance-toggle" class="sr-only peer"><div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-red-500"></div></label></div>` : ''}
                         </div>
                         <div class="flex gap-2">
-                            <input type="number" id="auto-qty" min="1" max="40" class="w-16 p-2 text-center border rounded text-sm" placeholder="Qtd">
+                            <input type="number" id="auto-qty" min="1" max="40" class="w-16 p-2 text-center border rounded text-sm dark:bg-slate-600 dark:text-white dark:border-slate-500" placeholder="Qtd">
                             <button id="auto-select-btn" class="flex-grow btn-mopi-secondary text-xs">Selecionar Automático</button>
                         </div>
                     </div>
@@ -218,8 +218,8 @@ export const renderLexList = (reservations, currentUserId) => {
     const sorted = reservations.sort((a, b) => a.day.localeCompare(b.day) || a.time.localeCompare(b.time));
 
     el.innerHTML = sorted.length ? sorted.map(x => `
-        <div class="flex justify-between items-center p-3 rounded-lg border border-gray-100 ${x.reservedBy === currentUserId ? 'bg-blue-50 border-blue-200' : 'bg-white'}">
-            <div><span class="text-[#00264d] font-bold block">${formatDate(x.day)}</span><span class="text-xs text-gray-500">${x.time} • <span class="uppercase font-bold">${x.teacherName}</span></span></div>
+        <div class="flex justify-between items-center p-3 rounded-lg border border-gray-100 dark:border-slate-700 ${x.reservedBy === currentUserId ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800' : 'bg-white dark:bg-slate-700'}">
+            <div><span class="text-[#00264d] dark:text-white font-bold block">${formatDate(x.day)}</span><span class="text-xs text-gray-500 dark:text-gray-300">${x.time} • <span class="uppercase font-bold">${x.teacherName}</span></span></div>
             ${(x.reservedBy === currentUserId || isAdmin()) ? `<button onclick="window.dispatchEvent(new CustomEvent('delete-lex', {detail: '${x.id}'}))" class="text-red-400 hover:text-red-600 font-bold px-2">✕</button>` : ''}
         </div>`).join('') : '<p class="text-gray-400 text-sm italic py-2">Nenhuma reserva.</p>';
 };
